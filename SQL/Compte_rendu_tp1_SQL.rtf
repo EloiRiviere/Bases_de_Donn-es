@@ -1,0 +1,188 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1036{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset1 Cambria Math;}}
+{\*\generator Riched20 10.0.10586}{\*\mmathPr\mmathFont1\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\qc\ul\f0\fs22\lang12 Compte rendu TP1 SQL\par
+
+\pard\sa200\sl276\slmult1\b Exercice 1:\par
+Q1:\ulnone\b0\par
+MCD:\par
+\fs18 Famille(\ul CodeFamille\ulnone ,Nom)\par
+Client(\ul ReferenceClient\ulnone ,Nom,Rue,CodePostal,Ville,Ty peClient,TypeTarif)\par
+Produit(\ul ReferenceProduit\ulnone ,Designation,Stock,CodeEtat,PrixNormal,PrixGrossiste,CodeFamille)\par
+Vente(\ul NumeroVente\ulnone ,DateVente)\par
+VenteProduit(\ul ReferenceProduit\ulnone ,\ul NumeroVente\ulnone ,Quantite,PrixVenteUnitaire)\par
+\par
+\fs22 MLD:\par
+\fs18 1 Famille(\ul CodeFamille\ulnone ,Nom)\par
+1 Client(\ul ReferenceClient\ulnone ,Nom,Rue,CodePostal,Ville,Ty peClient,TypeTarif)\par
+2 Produit(\ul ReferenceProduit\ulnone ,Designation,Stock,CodeEtat,PrixNormal,PrixGrossiste,CodeFamille,\strike CodeFamille\strike0 )\par
+2 Vente(\ul NumeroVente\ulnone ,DateVente,\strike ReferenceClient\strike0 )\par
+3 VenteProduit(\ul\strike ReferenceProduit\ulnone\strike0 ,\strike NumeroVente\strike0 ,Quantite,PrixVenteUnitaire)\par
+\fs22 (mots barr\'e9s \f1\u8594?\f0\lang1036  soulign\'e9s en pointill\'e9s)\par
+\par
+\ul\b Q2:\ulnone\b0\par
+\ul Cr\'e9er table famille:\ulnone\par
+SQL> create table famille(\par
+CodeFamille char(6) primary key,\par
+Nom varchar2(30)\par
+);\par
+\par
+\ul Cr\'e9er table client:\ulnone\par
+\lang12 SQL> create table client(\par
+ReferenceClient char(6) primary key,\par
+Nom varchar2(20),\par
+Rue varchar2(30),\par
+CodePostal char(5),\par
+Ville varchar2(20),\par
+TypeClient char(1),\par
+TypeTarif char(1)\par
+);\par
+\ul\b Q3:\par
+\ulnone\b0 SQL> select * from cat;\par
+\par
+TABLE_NAME\par
+ TABLE_TYPE\par
+-------------------------------------------------------------------------------------------------------------------------------- -----------\par
+CLIENT\par
+ TABLE\par
+FAMILLE\par
+ TABLE\par
+\par
+\f1\u8594?\f0\lang1036  Cette commande affiche les diff\'e9rentes tables (pas leur contenu)\par
+\par
+\ul\b Q4:\par
+\ulnone\b0\lang12 SQL> create table famille(\par
+CodeFamille char(6) primary key,\par
+Nom varchar2(30),\par
+  );\par
+create table famille(\par
+             *\par
+ERREUR \'d3 la ligne 1 :\par
+ORA-00955: ce nom d'objet existe d\'daj\'d3\par
+\par
+\ul\b Q5:\ulnone\b0\par
+SQL> drop table famille purge;\par
+Table supprim\'dae.\par
+SQL> select * from cat;\par
+TABLE_NAME\par
+ TABLE_TYPE\par
+-------------------------------------------------------------------------------------------------------------------------------- -----------\par
+CLIENT\par
+ TABLE\par
+\ul\par
+\b Q6:\par
+\ulnone\b0 SQL> create table famille(\par
+  2  CodeFamille char(6) primary key,\par
+  3  Nom varchar2(30)\par
+  4  );\par
+Table cr\'da\'dae.\par
+SQL> select * from cat;\par
+TABLE_NAME\par
+ TABLE_TYPE\par
+-------------------------------------------------------------------------------------------------------------------------------- -----------\par
+CLIENT\par
+ TABLE\par
+FAMILLE\par
+ TABLE\par
+\ul\par
+\b Exercice 2:\par
+Q1:\ulnone\b0\par
+SQL> insert into client values ('CL0001','DUBOIS','46 rue de la Boustifaille','63000','BOURG PALETTE','2','G');\par
+SQL> insert into client values ('CL0002','MARTIN','89bis rue du Supo','68432','DRESSROSA','0','N');\par
+SQL> insert into client values ('CL0003','MARTINOT','354 boulevard of Rockendreams','24241','BLANCHERIVE','3','N');\par
+SQL> insert into client values ('CL0004','D''AUBERT','98 place du Bucher','12345','NOVIGRAD','0','N');\par
+SQL> insert into client values ('CL0005','BALLOT','3 route de Cesttropdommage','67541','ZUT','1','G');\par
+SQL> insert into client values ('CL0006','DUBOIS','For\'eat de Jade','00000','ALABASTA','1','G');\par
+SQL> insert into famille values ('F00001','eclairage');\par
+SQL> insert into famille values ('F00002','chauffage');\par
+\par
+SQL> select * from famille;\par
+\par
+CODEFA NOM\par
+------ ------------------------------\par
+F00001 eclairage\par
+F00002 chauffage\par
+\par
+SQL> select * from client;\par
+\par
+REFERE NOM                  RUE                            CODEP VILLE                T T\par
+------ -------------------- ------------------------------ ----- -------------------- - -\par
+CL0001 DUBOIS               46 rue de la Boustifaille      63000 BOURG PALETTE        2 G\par
+CL0002 MARTIN               89bis rue du Supo              68432 DRESSROSA            0 N\par
+CL0003 MARTINOT             354 boulevard of Rockendreams  24241 BLANCHERIVE          3 N\par
+CL0004 D'AUBERT             98 place du Bucher             12345 NOVIGRAD             0 N\par
+CL0005 BALLOT               3 route de Cesttropdommage     67541 ZUT                  1 G\par
+CL0006 DUBOIS               For\'eat de Jade                  00000 ALABASTA             1 G\par
+\par
+6 lignes s\'dalectionn\'daes.\par
+\par
+\ul\b Q2:\ulnone\b0\par
+create table produit(\par
+ReferenceProduit char(6) primary key,\par
+Designation varchar2(50),\par
+Stock varchar2(10),\par
+CodeEtat char(1),\par
+PrixNormal varchar2(10),\par
+PrixGrossiste varchar2 (10),\par
+CodeFamille char(6)\par
+);\par
+SQL> insert into  produit values('P00001','Ampoule','3','D','0.90','3','F00001');\par
+SQL> insert into  produit values('P00002','Radiateur','47','D','50','45','F00002');\par
+SQL> insert into  produit values('P00003','Led','1000','D','6','4','F00001');\par
+SQL> insert into  produit values('P00004','Chaudiere','0','E','150','130','F00002');\par
+SQL> insert into  produit values('P00005','Guirlande','42','D','10','7','F00001');\par
+SQL> insert into  produit values('P00006','Bouillotte Hi-Tech','0','E','5','4','F00002');\par
+\par
+SQL> select * from produit;\par
+\par
+REFERE DESIGNATION                                        STOCK      C PRIXNORMAL PRIXGROSSI CODEFA\par
+------ -------------------------------------------------- ---------- - ---------- ---------- ------\par
+P00001 Ampoule                                            3          D 0.90       3          F00001\par
+P00002 Radiateur                                          47         D 50         45         F00002\par
+P00003 Led                                                1000       D 6          4          F00001\par
+P00004 Chaudiere                                          0          E 150        130        F00002\par
+P00005 Guirlande                                          42         D 10         7          F00001\par
+P00006 Bouillotte Hi-Tech                                 0          E 5          4          F00002\par
+\par
+\ul\b Q3:\ulnone\b0\par
+SQL> select * from client where CODEPOSTAL='63000';\par
+REFERE NOM                  RUE                            CODEP VILLE                T T\par
+------ -------------------- ------------------------------ ----- -------------------- - -\par
+CL0001 DUBOIS               46 rue de la Boustifaille      63000 BOURG PALETTE        2 G\par
+\par
+\ul\b Q4:\ulnone\b0\par
+SQL> select * from client where referenceclient='CL0001';\par
+REFERE NOM                  RUE                            CODEP VILLE                T T\par
+------ -------------------- ------------------------------ ----- -------------------- - -\par
+CL0001 DUBOIS               46 rue de la Boustifaille      63000 BOURG PALETTE        2 G\par
+\par
+SQL> update client set codepostal='11223' where referenceclient='CL0001';\par
+1 ligne mise \'d3 jour.\par
+\par
+SQL> select * from client where referenceclient='CL0001';\par
+REFERE NOM                  RUE                            CODEP VILLE                T T\par
+------ -------------------- ------------------------------ ----- -------------------- - -\par
+CL0001 DUBOIS               46 rue de la Boustifaille      11223 BOURG PALETTE        2 G\par
+\par
+\ul\b Q5:\par
+\ulnone\b0 (On s'est rendus compte qu'on a mi de mauvais codes donc on rechange ici)\par
+SQL> update client set codepostal='63000' where referenceclient='CL0002';\par
+SQL> update client set codepostal='63000' where referenceclient='CL0004';\par
+SQL> update client set codepostal='42000' where referenceclient='CL0003';\par
+SQL> update client set codepostal='42000' where referenceclient='CL0005';\par
+SQL> update client set codepostal='15000' where referenceclient='CL0006';\par
+\par
+SQL> update client set typetarif='G' where codepostal='63000';\par
+2 lignes mises \'d3 jour.\par
+\par
+SQL> select * from client;\par
+REFERE NOM                  RUE                            CODEP VILLE                T T\par
+------ -------------------- ------------------------------ ----- -------------------- - -\par
+CL0001 DUBOIS               46 rue de la Boustifaille      11223 BOURG PALETTE        2 G\par
+CL0002 MARTIN               89bis rue du Supo              63000 DRESSROSA            0 G\par
+CL0003 MARTINOT             354 boulevard of Rockendreams  42000 BLANCHERIVE          3 N\par
+CL0004 D'AUBERT             98 place du Bucher             63000 NOVIGRAD             0 G\par
+CL0005 BALLOT               3 route de Cesttropdommage     42000 ZUT                  1 G\par
+CL0006 DUBOIS               For\'eat de Jade                  15000 ALABASTA             1 G\par
+\par
+}
+ 

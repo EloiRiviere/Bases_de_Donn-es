@@ -1,0 +1,325 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1036{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset1 Cambria Math;}{\f2\fnil\fcharset0 Courier New;}{\f3\fnil\fcharset0 Cambria Math;}}
+{\*\generator Riched20 10.0.10586}{\*\mmathPr\mmathFont1\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sl276\slmult1\f0\fs22\lang12 Exercice 1:\par
+Q1:\tab start U:\\SQL\\reset.sql\par
+\par
+
+\pard Q2:\par
+\f1\u8594?\f0\lang1036  voir fichier reset.sql\par
+\par
+Q3:\par
+\f2 insert into  produit values('P00007','Handspinner_Lumineux',0,'E',4,2,'F00001');\f0\par
+\par
+Q4:\lang12\par
+\f2\lang1036 insert into  produit values('P00008','Licorne',0,'E',5,0.9,'F00003');\par
+
+\pard\sl276\slmult1\f0\lang12\par
+ERREUR \'d3 la ligne 1 :\par
+ORA-02291: violation de contrainte d'int\'dagrit\'da (ELRIVIERE2.FAMILLE) - cl\'da\par
+parent introuvable\par
+\f1\u8594?\f0\lang1036  La famille 'F00003' n'existe pas dans la table famille\par
+\par
+\f2 Q5:\f0\par
+insert into famille values('F00003','mondeImaginaire');\par
+\f2 insert into  produit values('P00007','Licorne',0,'E',5,0.9,'F00003');\par
+\par
+\par
+\f0\lang12 Q6:\par
+update produit set codefamille='F00004' where codefamille='F00001' and designation="Ampoule";\par
+update produit set codefamille='F00004' where codefamille='F00001' and designation='Ampoule'\par
+*\par
+ERREUR \'d3 la ligne 1 :\par
+ORA-02291: violation de contrainte d'int\'dagrit\'da (ELRIVIERE2.FAMILLE) - cl\'da parent introuvable\par
+\par
+\f1\u8594?\f0\lang1036  Il n'a pas trouv\'e9 la famille 'F00004' dans la table famille\par
+\par
+Q7:\par
+delete from famille where nom='eclairage';\par
+delete from famille where nom='eclairage'\par
+*\par
+ERREUR \'d3 la ligne 1 :\par
+ORA-02292: violation de contrainte (ELRIVIERE2.FAMILLE) d'int\'dagrit\'da - enregistrement fils existant\par
+\f1\u8594?\f0\lang1036  Il existe des produits qui appartiennent \'e0 cette famille.\par
+\par
+Q8:\par
+
+\pard\f2 insert into  produit values('P00009','Lampadaire',3,'D',7,3,'F00001');\par
+insert into  produit values('P00010','Poele',47,'D',500,440,'F00002');\par
+insert into  produit values('P00011','Mickey',1000,'D',6,4,'F00003');\par
+
+\pard\sl276\slmult1\f0\lang12\par
+select * from produit;\par
+REFERE DESIGNATION                         STOCK C PRIXNORMAL PRIXGROSSISTE CODEFA\par
+------ ------------------------------ ---------- - ---------- ------------- ------\par
+P00001 Ampoule                                 3 D         ,9             3 F00001\par
+P00002 Radiateur                              47 D         50            45 F00002\par
+P00003 Led                                  1000 D          6             4 F00001\par
+P00004 Chaudiere                               0 E        150           130 F00002\par
+P00005 Guirlande                              42 D         10             7 F00001\par
+P00006 Bouillotte Hi-Tech                      0 E          5             4 F00002\par
+P00007 Handspinner_Lumineux                    0 E          4             2 F00001\par
+P00008 Licorne                                 0 E          5            ,9 F00003\par
+P00009 Lampadaire                              3 D          7             3 F00001\par
+P00010 Poele                                  47 D        500           440 F00002\par
+P00011 Mickey                               1000 D          6             4 F00003\par
+\par
+11 lignes s\'dalectionn\'daes.\par
+\par
+Q9:\par
+delete from produit where codefamille='F00001'; \par
+5 lignes supprim\'daes.\par
+\par
+Exercice 2:\par
+Q1:\par
+\f1\u8594?\f0\lang1036  voir fichier reset.sql\par
+\par
+Q2:\lang12\par
+update produit set stock=stock-1 where stock=0;\par
+update produit set stock=stock-1 where stock=0\par
+*\par
+ERREUR \'d3 la ligne 1 :\par
+ORA-02290: violation de contraintes (ELRIVIERE2.STOCK) de v\'darification\par
+\par
+\f1\u8594?\f0\lang1036  Stock est supp\'e9rieur ou \'e9gal \'e0 0\par
+\par
+\lang12 Q3:\par
+\lang1036 (on ne sait pas encore le faire)\lang12\par
+\par
+Q4:\par
+\f1\u8594?\f0\lang1036  chaque famille est d\'e9j\'e0 unique de par son codefamille\par
+\par
+Exercice 3:\par
+\par
+Q1:\par
+insert into vente values ('V00001','01/12/2017','CL0001');\par
+1 ligne cr\'da\'dae.\lang12\par
+\par
+Q2:\par
+insert into vente values ('V00002','01/12/2017','CL0002');\par
+1 ligne cr\'da\'dae.\par
+\par
+select * from vente;\par
+\par
+NUMVEN DATEVENT REFERE\par
+------ -------- ------\par
+V00001 01/12/17 CL0001\par
+V00002 01/12/17 CL0002\par
+\par
+\f1\u8594?\f0\lang1036  rien d'anormal ne se passe car la date n'est pas unique a la vente.\lang12\par
+\par
+\par
+Q3:\par
+ insert into venteproduit values ('56','150','V00001','P00004');\par
+1 ligne cr\'da\'dae.\par
+\par
+SQL> select * from venteproduit;\par
+  QUANTITE PRIXVENTEUNITAIRE NUMERO REFERE\par
+---------- ----------------- ------ ------\par
+        56               150 V00001 P00004\par
+\par
+Q4:\par
+insert into venteproduit values ('56','150','V00003','P00004');\par
+\par
+insert into venteproduit values ('56','150','V00003','P00004')\par
+*\par
+ERREUR \'d3 la ligne 1 :\par
+ORA-02291: violation de contrainte d'int\'dagrit\'da (ELRIVIERE2.PRIMARYKEYVENTEPRODUIT) - cl\'da parent introuvable\par
+\par
+\f1\u8594?\f0\lang1036  la vente 'V00003' n'a pas \'e9t\'e9 trouv\'e9e dans la table vente\par
+\par
+Q5:\par
+insert into vente values('V00003','08/12/2017','CL0003');\par
+insert into venteproduit values(2,10,'V00003','P00005');\par
+select * from vente;\par
+\par
+NUMVEN DATEVENT REFERE\par
+------ -------- ------\par
+V00001 01/12/17 CL0001\par
+V00002 01/12/17 CL0002\par
+V00003 08/12/17 CL0003\par
+\par
+select * from venteproduit;\par
+\par
+  QUANTITE PRIXVENTEUNITAIRE NUMERO REFERE\par
+---------- ----------------- ------ ------\par
+        10                ,9 V00001 P00001\par
+         5                10 V00002 P00005\par
+         2                10 V00003 P00005\lang12\par
+\par
+\f1\u8594?\f3\lang1036  aucune erreur\par
+\par
+Q6:\par
+delete from venteproduit where numerovente='V00001';\par
+1 ligne supprim\'dae.\par
+\par
+delete from vente where numvente='V00001';\par
+1 ligne supprim\'dae.\par
+\par
+select * from vente;\par
+\par
+NUMVEN DATEVENT REFERE\par
+------ -------- ------\par
+V00002 01/12/17 CL0002\par
+V00003 08/12/17 CL0003\par
+\par
+select * from venteproduit;\par
+\par
+  QUANTITE PRIXVENTEUNITAIRE NUMERO REFERE\par
+---------- ----------------- ------ ------\par
+         5                10 V00002 P00005\par
+         2                10 V00003 P00005\par
+\u8594? il faut supprimer d'abord la ligne de la table venteproduit, sinon une contrainte lance une erreur (contrainte d'int\'e9grit\'e9 primary key vente dans la table venteproduit)\par
+\par
+Exercice 4:\par
+Q1:\par
+\f0\lang12 Fait\par
+\par
+Q2:\par
+Oui car certaines tables d\'e9pendent d'autres tables\par
+\par
+Q3:\par
+start U:\\SQL\\reset.sql;\par
+\par
+Table supprim\'dae.\par
+\par
+\par
+Table supprim\'dae.\par
+\par
+\par
+Table supprim\'dae.\par
+\par
+\par
+Table supprim\'dae.\par
+\par
+\par
+Table supprim\'dae.\par
+\par
+\par
+Table cr\'da\'dae.\par
+\par
+\par
+Table cr\'da\'dae.\par
+\par
+\par
+Table cr\'da\'dae.\par
+\par
+\par
+Table cr\'da\'dae.\par
+\par
+\par
+Table cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+1 ligne cr\'da\'dae.\par
+\par
+\par
+CODEFA NOM\par
+------ ------------------------------\par
+F00001 eclairage\par
+F00002 chauffage\par
+\par
+\par
+REFERE NOM                  RUE                            CODEP VILLE                T T\par
+------ -------------------- ------------------------------ ----- -------------------- - -\par
+CL0001 DUBOIS               46 rue de la Boustifaille      63000 BOURG PALETTE        G 2\par
+CL0002 MARTIN               89 bis rue du Supo             63000 DRESSROSA            N 0\par
+CL0003 MARTINOT             354 boulevard of Rockendreams  42000 BLANCHERIVE          N 3\par
+CL0004 D'AUBERT             98 place du Bucher             63000 NOVIGRAD             N 0\par
+CL0005 BALLOT               3 route de Cesttropdommage     42000 ZUT                  G 1\par
+CL0006 DUBOIS               For\'dbt de Jade                  15000 ALABASTA             G 1\par
+\par
+6 lignes s\'dalectionn\'daes.\par
+\par
+\par
+REFERE DESIGNATION                         STOCK C PRIXNORMAL PRIXGROSSISTE CODEFA\par
+------ ------------------------------ ---------- - ---------- ------------- ------\par
+P00001 Ampoule                                 3 D          3            ,9 F00001\par
+P00002 Radiateur                              47 D         50            45 F00002\par
+P00003 Led                                  1000 D          6             4 F00001\par
+P00004 Chaudiere                               0 E        150           130 F00002\par
+P00005 Guirlande                              42 D         10             7 F00001\par
+P00006 Bouillotte Hi-Tech                      0 E          5             4 F00002\par
+\par
+6 lignes s\'dalectionn\'daes.\par
+\par
+\par
+NUMVEN DATEVENT REFERE\par
+------ -------- ------\par
+V00001 01/12/17 CL0001\par
+V00002 01/12/17 CL0002\par
+\par
+\par
+  QUANTITE PRIXVENTEUNITAIRE NUMERO REFERE\par
+---------- ----------------- ------ ------\par
+        10                ,9 V00001 P00001\par
+         5                10 V00002 P00005\par
+\par
+\par
+TABLE_NAME\par
+ TABLE_TYPE\par
+-------------------------------------------------------------------------------------------------------------------------------- -----------\par
+CLIENT\par
+ TABLE\par
+FAMILLE\par
+ TABLE\par
+PRODUIT\par
+ TABLE\par
+VENTE\par
+ TABLE\par
+VENTEPRODUIT\par
+ TABLE\par
+\par
+SQL>\par
+}
+ 
